@@ -1,30 +1,30 @@
-type StreamId = string;
+export type StreamId = string;
 
-type Any = never;
-type NoStream = never;
-type Exact = number;
+export type Any = never;
+export type NoStream = never;
+export type Exact = number;
 
-type ExpectedVersion = Any | NoStream | Exact
+export type ExpectedVersion = Any | NoStream | Exact
 
-type AllEvents = never;
-type FromVersion = number;
-type ToVersion = number;
-type VersionRange = {
+export type AllEvents = never;
+export type FromVersion = number;
+export type ToVersion = number;
+export type VersionRange = {
   readonly fromVersion: FromVersion;
   readonly toVersion: ToVersion;
 }
 
-type EventReadRange = AllEvents | FromVersion | ToVersion | VersionRange
+export type EventReadRange = AllEvents | FromVersion | ToVersion | VersionRange
 
-type AllStreams = never;
-type StartsWith = string;
-type EndsWith = string;
-type Contains = string;
+export type AllStreams = never;
+export type StartsWith = string;
+export type EndsWith = string;
+export type Contains = string;
 
-type StreamReadFilter = AllStreams | StartsWith | EndsWith | Contains
+export type StreamReadFilter = AllStreams | StartsWith | EndsWith | Contains
 
 
-type EventRead<Payload, Meta> = {
+export type EventRead<Payload, Meta> = {
   readonly id: string,
   readonly correlationId?: string,
   readonly causationId? : string,
@@ -36,7 +36,7 @@ type EventRead<Payload, Meta> = {
   readonly createdUtc : Date
 }
 
-type EventWrite<Payload, Meta> = {
+export type EventWrite<Payload, Meta> = {
   readonly id: string,
   readonly correlationId?: string,
   readonly causationId? : string,
@@ -45,13 +45,13 @@ type EventWrite<Payload, Meta> = {
   readonly metaData: Meta
 }
 
-type Stream = {
+export type Stream = {
   readonly id: StreamId,
   readonly lastVersion : number,
   readonly lastUpdatedUtc : Date
 }
 
-type EventStore<Payload, Meta> = {
+export type EventStore<Payload, Meta> = {
   readonly appendEvent : (streamId: StreamId, expectedVersion: ExpectedVersion, eventWrite: EventWrite<Payload, Meta>) => Promise<EventRead<Payload, Meta>>,
   readonly appendEvents : (streamId: StreamId, expectedVersion: ExpectedVersion, eventWrites : ReadonlyArray<EventWrite<Payload, Meta>>) => Promise<ReadonlyArray<EventRead<Payload, Meta>>>
   readonly getEvent: (streamId: StreamId, version: number) => Promise<EventRead<Payload, Meta>>,
